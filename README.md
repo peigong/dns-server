@@ -21,8 +21,8 @@
 
 ### 建立软连接 ###
 
-	rm -rf /home/localad/dns-server/proxy
-	ln -s /home/localad/dns-server/release/dns-server-{版本号} /home/localad/dns-server/proxy
+	rm -rf /home/localad/dns-server/dns
+	ln -s /home/localad/dns-server/release/dns-server-{版本号} /home/localad/dns-server/dns
 
 第一次部署时，需要复制系统配置文件，并设置：
 

@@ -1,11 +1,11 @@
 ﻿#!/bin/sh
 
 ACTION=$1
-PIDFILE="../http-proxy-server.pid"
+PIDFILE="../dns-server.pid"
 
 #help
 usage(){
-    echo "Usage: sh ./http-proxy-server.sh {start|stop|restart}"
+    echo "Usage: sh ./dns-server.sh {start|stop|restart}"
     exit 1;
 }
 
