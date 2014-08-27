@@ -69,7 +69,7 @@ server.on('socketError', onSocketError);
 server.on('close', onClose);
 
 server.serve(53, '113.10.167.163');
-console.log('dns server running!')；
+console.log('dns server running!');
 
 tcpserver.on('request', onMessage);
 tcpserver.on('error', onError);
@@ -78,4 +78,4 @@ tcpserver.on('socketError', onSocketError);
 tcpserver.on('close', onClose);
 
 tcpserver.serve(53, '113.10.167.163');
-console.log('tcp server running!')
+console.log('tcp server running!');
