@@ -22,14 +22,16 @@ domains.map(function(domain){
 
 var sendResponse = function(response, domain, ip){
   console.log(domain, ip);
-  response.answer.push(dns.A({
-    name: domain,
-    address: ip,
-    ttl: 600
-  }));
+  if(ip){
+    response.answer.push(dns.A({
+      name: domain,
+      address: ip,
+      ttl: 600
+    }));
+  }
   response.send();
 }
-  
+   
 var onMessage = function (request, response) {
   var domain = request.question[0].name;
   if (dict.hasOwnProperty(domain) && proxy) {
