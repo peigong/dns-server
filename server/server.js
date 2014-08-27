@@ -10,7 +10,7 @@ if(settings.proxy){
   proxy = settings.proxy;
 }
 if(settings.domains){
-  domains = require(path.join(config, 'domains.json'));
+  domains = require(path.join(config, [settings.domains, 'json'].join('.')));
 }
 domains.map(function(domain){
   dict[domain] = 1;
