@@ -28,7 +28,7 @@ var sendResponse = function(response, domain, ips){
 }
   
 var onMessage = function (request, response) {
-  var domain = request.question[0].name);
+  var domain = request.question[0].name;
   if (dict.hasOwnProperty(domain) && proxy) {
     console.log([domain, proxy].join(':'));
     sendResponse(response, domain, [proxy]);
