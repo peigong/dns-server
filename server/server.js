@@ -35,11 +35,11 @@ var onMessage = function (request, response) {
   if (dict.hasOwnProperty(domain) && proxy) {
     sendResponse(response, domain, proxy);
   }else{
-    dns.lookup(domain, function (err, family, result) {
+    dns.lookup(domain, function (err, address, afamily) {
       if (err) {
         console.log(err);
       } else {
-        sendResponse(response, domain, result);
+        sendResponse(response, domain, address);
       }
     });
   }
