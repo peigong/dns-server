@@ -6,7 +6,10 @@ var path = require('path'),
   server = dns.createServer();
 
 var config = path.resolve(__dirname, '..', '..', '..', 'config');
-var dict = {}, proxy = '', domains = [], settings = require(path.join(config, 'settings.json'));
+var dict = {}, address = '', proxy = '', domains = [], settings = require(path.join(config, 'settings.json'));
+if(settings.address){
+  address = settings.address;
+}
 if(settings.proxy){
   proxy = settings.proxy;
 }
@@ -17,31 +20,26 @@ domains.map(function(domain){
   dict[domain] = 1;
 });
 
-var sendResponse = function(response, domain, ips){
-  ips = ips || [];
-  ips.map(function(ip){
-    response.answer.push(dns.A({
-      name: domain,
-      address: ip,
-      ttl: 600
-    }));
-  });
+var sendResponse = function(response, domain, ip){
+  console.log(domain, ip);
+  response.answer.push(dns.A({
+    name: domain,
+    address: ip,
+    ttl: 600
+  }));
   response.send();
 }
   
 var onMessage = function (request, response) {
   var domain = request.question[0].name;
   if (dict.hasOwnProperty(domain) && proxy) {
-    console.log([domain, proxy].join(':'));
-    sendResponse(response, domain, [proxy]);
+    sendResponse(response, domain, proxy);
   }else{
-    dns.resolve(domain, function (err, results) {
+    dns.lookup(domain, function (err, family, result) {
       if (err) {
         console.log(err);
       } else {
-        results = results || [];
-        console.log([domain, results.join(',')].join(':'));
-        sendResponse(response, domain, results);
+        sendResponse(response, domain, result);
       }
     });
   }
@@ -68,14 +66,16 @@ server.on('listening', onListening);
 server.on('socketError', onSocketError);
 server.on('close', onClose);
 
-server.serve(53, '113.10.167.163');
-console.log('dns server running!');
-
 tcpserver.on('request', onMessage);
 tcpserver.on('error', onError);
 tcpserver.on('listening', onListening);
 tcpserver.on('socketError', onSocketError);
 tcpserver.on('close', onClose);
 
-tcpserver.serve(53, '113.10.167.163');
-console.log('tcp server running!');
+if(address){
+  server.serve(53, address);
+  tcpserver.serve(53, address);
+  console.log('server running!');
+}else{
+  console.log('address error.');
+}
