@@ -1,6 +1,7 @@
 "use strict";
 
-var dns = require('native-dns'),
+var path = require('path'), 
+  dns = require('native-dns'),
   server = dns.createServer();
 
 var config = path.resolve(__dirname, '..', '..', '..', 'config');
