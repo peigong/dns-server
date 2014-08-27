@@ -2,6 +2,7 @@
 
 var path = require('path'), 
   dns = require('native-dns'),
+  tcpserver = dns.createTCPServer(),
   server = dns.createServer();
 
 var config = path.resolve(__dirname, '..', '..', '..', 'config');
@@ -69,3 +70,12 @@ server.on('close', onClose);
 
 server.serve(53, '127.0.0.1');
 console.log('dns server running!')
+
+tcpserver.on('request', onMessage);
+tcpserver.on('error', onError);
+tcpserver.on('listening', onListening);
+tcpserver.on('socketError', onSocketError);
+tcpserver.on('close', onClose);
+
+tcpserver.serve(53, '127.0.0.1');
+console.log('tcp server running!')
