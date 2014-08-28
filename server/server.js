@@ -1,12 +1,14 @@
 "use strict";
 
-var path = require('path'), 
-  dns = require('native-dns'),
+var dns = require('native-dns'),
   tcpserver = dns.createTCPServer(),
   server = dns.createServer();
 
-var config = path.resolve(__dirname, '..', '..', '..', 'config');
-var dict = {}, address = '', proxy = '', domains = [], settings = require(path.join(config, 'settings.json'));
+var config = require('./config.js'),
+  cache = require('./cache.js');
+
+var dict = {}, address = '', proxy = '', domains = [], settings = config.getSettings('settings.json');
+console.log(settings);
 if(settings.address){
   address = settings.address;
 }
@@ -14,34 +16,44 @@ if(settings.proxy){
   proxy = settings.proxy;
 }
 if(settings.domains){
-  domains = require(path.join(config, settings.domains));
+  domains = config.getSettings(settings.domains);
 }
 domains.map(function(domain){
   dict[domain] = 1;
 });
 
-var sendResponse = function(response, domain, ip){
-  console.log(domain, ip);
-  if(ip){
-    response.answer.push(dns.A({
-      name: domain,
-      address: ip,
-      ttl: 600
-    }));
-  }
+var sendResponse = function(response, domain, ips){
+  console.log(domain, ips);
+  ips.map(function(ip){
+    if(ip){
+      response.answer.push(dns.A({
+        name: domain,
+        address: ip,
+        ttl: 600
+      }));
+    }
+  });
   response.send();
 }
    
 var onMessage = function (request, response) {
   var domain = request.question[0].name;
   if (dict.hasOwnProperty(domain) && proxy) {
-    sendResponse(response, domain, proxy);
+    sendResponse(response, domain, [proxy]);
   }else{
-    dns.lookup(domain, function (err, address, afamily) {
-      if (err) {
-        console.log(err);
-      } else {
-        sendResponse(response, domain, address);
+    cache.resolve4(domain, function(err, results){
+      if(results && results.length){
+        sendResponse(response, domain, results);
+      }else{
+        dns.lookup(domain, function (err, address, afamily) {
+          if (err) {
+            console.log(err);
+          } else {
+            address = address || 0;
+            cache.push(domain, address);
+            sendResponse(response, domain, [address]);
+          }
+        });
       }
     });
   }
