@@ -63,6 +63,8 @@
 - [全国 DNS 服务器](http://www.ip.cn/dns.html)
 - [全国内外公共DNS服务器地址分享](http://www.orsoon.com/news/pcnews/15733.html)
 
+env GIT_SSL_NO_VERIFY=true   
+
 events.js:72
         throw er; // Unhandled 'error' event
               ^

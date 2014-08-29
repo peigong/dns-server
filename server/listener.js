@@ -1,3 +1,21 @@
+var dns = require('native-dns');
+var config = require('./config.js'),
+  cache = require('./cache.js');
+
+var separator = '@';
+
+var dict = {}, proxy = '', domains = [], 
+  settings = config.getSettings('settings.json');
+if(settings.proxy){
+  proxy = settings.proxy;
+}
+if(settings.domains){
+  domains = config.getSettings(settings.domains);
+}
+domains.map(function(domain){
+  dict[domain] = 1;
+});
+
 function sendResponse(response, domain, ips){
   console.log(domain, ips);
   ips.map(function(ip){

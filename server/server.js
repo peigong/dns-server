@@ -5,26 +5,14 @@ var dns = require('native-dns'),
   server = dns.createServer();
 
 var config = require('./config.js'),
-  cache = require('./cache.js'),
   listener = require('./listener.js');
 
-var separator = '@';
-
-var dict = {}, address = '', proxy = '', domains = [], 
+var address = '', 
   settings = config.getSettings('settings.json');
 console.log(settings);
 if(settings.address){
   address = settings.address;
 }
-if(settings.proxy){
-  proxy = settings.proxy;
-}
-if(settings.domains){
-  domains = config.getSettings(settings.domains);
-}
-domains.map(function(domain){
-  dict[domain] = 1;
-});
 
 server.on('request', listener.onMessage);
 server.on('error', listener.onError);
