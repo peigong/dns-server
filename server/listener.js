@@ -2,7 +2,8 @@ var dns = require('native-dns');
 var config = require('./config.js'),
   cache = require('./cache.js');
 
-var separator = '@';
+var separator = '@',
+  miss_ip = '0.0.0.0';
 
 var dict = {}, proxy = '', domains = [], 
   settings = config.getSettings('settings.json');
@@ -19,7 +20,7 @@ domains.map(function(domain){
 function sendResponse(response, domain, ips){
   console.log(domain, ips);
   ips.map(function(ip){
-    if(ip){
+    if(ip != miss_ip){
       var isIPV6 = false;
       if(ip.indexOf(separator) > -1){
         var arr = ip.split(separator);
@@ -52,7 +53,7 @@ module.exports = {
               if (err) {
                 console.log(err);
               } else {
-                address = address || 0;
+                address = address || miss_ip;
                 if(address){
                   address = [address, afamily].join(separator);
                 }
