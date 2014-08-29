@@ -62,3 +62,18 @@
 - [如何刷新DNS缓存](http://blog.csdn.net/zhongguoren666/article/details/7597675)
 - [全国 DNS 服务器](http://www.ip.cn/dns.html)
 - [全国内外公共DNS服务器地址分享](http://www.orsoon.com/news/pcnews/15733.html)
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: ipaddr: ipv6 part count should be 8
+    at new IPv6 (/home/localad/dns-server/release/dns-server/node_modules/native-dns/node_modules/ipaddr.js/lib/ipaddr.js:155:15)
+    at Function.ipaddr.IPv4.parse.ipaddr.IPv6.parse (/home/localad/dns-server/release/dns-server/node_modules/native-dns/node_modules/ipaddr.js/lib/ipaddr.js:374:12)
+    at Object.ipaddr.parse (/home/localad/dns-server/release/dns-server/node_modules/native-dns/node_modules/ipaddr.js/lib/ipaddr.js:383:26)
+    at writeIp (/home/localad/dns-server/release/dns-server/node_modules/native-dns/node_modules/native-dns-packet/packet.js:258:16)
+    at Function.Packet.write (/home/localad/dns-server/release/dns-server/node_modules/native-dns/node_modules/native-dns-packet/packet.js:433:19)
+    at Packet.send (/home/localad/dns-server/release/dns-server/node_modules/native-dns/lib/packet.js:43:16)
+    at sendResponse (/home/localad/dns-server/release/dns-server/server/server.js:36:12)
+    at /home/localad/dns-server/release/dns-server/server/server.js:46:9
+    at /home/localad/dns-server/release/dns-server/server/cache.js:16:13
+    at try_callback (/home/localad/dns-server/release/dns-server/node_modules/redis/index.js:573:9)
