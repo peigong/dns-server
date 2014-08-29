@@ -8,7 +8,7 @@ function getCacheKey(domain){
     return [prefix, domain].join(separator);
 };
 
-function resolve4(domain, callback){
+function resolve(domain, callback){
     redis.createClient(redis_db_name)
     .then(function(client){
         var key = getCacheKey(domain);
@@ -40,6 +40,6 @@ function push(domain, ip, callback){
 }
 
 module.exports = {
-    resolve4: resolve4,
+    resolve: resolve,
     push: push
 };
