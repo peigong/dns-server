@@ -20,13 +20,13 @@ domains.map(function(domain){
 function sendResponse(response, domain, ips){
   console.log(domain, ips);
   ips.map(function(ip){
+    var isIPV6 = false;
+    if(ip.indexOf(separator) > -1){
+      var arr = ip.split(separator);
+      ip = arr[0];
+      isIPV6 = ('6' === arr[1]);
+    }
     if(ip != miss_ip){
-      var isIPV6 = false;
-      if(ip.indexOf(separator) > -1){
-        var arr = ip.split(separator);
-        ip = arr[0];
-        isIPV6 = ('6' === arr[1]);
-      }
       var address;
       if(isIPV6){
         address = dns.AAAA({ name: domain, address: ip, ttl: 600 });
