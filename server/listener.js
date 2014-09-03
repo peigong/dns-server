@@ -54,9 +54,7 @@ module.exports = {
                 console.log(err);
               } else {
                 address = address || miss_ip;
-                if(address){
-                  address = [address, afamily].join(separator);
-                }
+                address = [address, afamily].join(separator);
                 cache.push(domain, address);
                 sendResponse(response, domain, [address]);
               }
