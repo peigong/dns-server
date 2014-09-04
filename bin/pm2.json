@@ -1,0 +1,11 @@
+{
+  "name" : "dns-server",
+  "script" : "../server/server.js",
+  "max" : "5",
+  "exec_mode" : "cluster_mode",
+  "log_date_format"  : "YYYY-MM-DD",
+  "port" : "53",
+  "env": {
+      "NODE_ENV": "production"
+  }
+}
