@@ -47,6 +47,7 @@ module.exports = {
         sendResponse(response, domain, [proxy]);
       }else{
         console.log('domain:', domain, ';');
+        console.log('length:', domain.length);
         cache.resolve(domain, function(err, results){
           if(results && results.length){
             sendResponse(response, domain, results);
