@@ -18,7 +18,7 @@ domains.map(function(domain){
 });
 
 function sendResponse(response, domain, ips){
-  console.log(domain, ips);
+  //console.log(domain, ips);
   ips.map(function(ip){
     var isIPV6 = false;
     if(ip.indexOf(separator) > -1){
@@ -42,27 +42,25 @@ function sendResponse(response, domain, ips){
 module.exports = {
     onMessage: function (request, response) {
       var domain = request.question[0].name;
-console.log('step 1');
-      //domain = domain.replace(/(^s*)|(s*$)/g, '');
+var start = (new Date()).getTime();
+console.log('timer:');
       if (dict.hasOwnProperty(domain) && proxy) {
-console.log('step 20');
+console.log('step 20:', (new Date()).getTime() - start);
         sendResponse(response, domain, [proxy]);
       }else{
-        console.log('domain:', domain, ';');
-        console.log('length:', domain.length);
-console.log('step 21');
+console.log('step 21:', (new Date()).getTime() - start);
         cache.resolve(domain, function(err, results){
           if(results && results.length){
-console.log('step 30');
+console.log('step 30:', (new Date()).getTime() - start);
             sendResponse(response, domain, results);
           }else{
-console.log('step 31');
+console.log('step 31:', (new Date()).getTime() - start);
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
-console.log('step 40');
+console.log('step 40:', (new Date()).getTime() - start);
                 console.error(err);
               } else {
-console.log('step 41');
+console.log('step 41:', (new Date()).getTime() - start);
                 address = address || miss_ip;
                 afamily = afamily || 4;
                 address = [address, afamily].join(separator);
