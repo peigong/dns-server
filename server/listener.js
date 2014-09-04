@@ -51,7 +51,7 @@ module.exports = {
           }else{
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
-                console.log(err);
+                console.error(err);
               } else {
                 address = address || miss_ip;
                 afamily = afamily || 4;
@@ -65,7 +65,7 @@ module.exports = {
       }
     },
     onError: function (err, buff, req, res) {
-      console.log(err.stack);
+      console.error('onError:', err.stack);
     },
 
     onListening: function () {
@@ -73,7 +73,7 @@ module.exports = {
     },
 
     onSocketError: function (err, socket) {
-      console.log(err);
+      console.error('onSocketError', err);
     },
 
     onClose: function () {

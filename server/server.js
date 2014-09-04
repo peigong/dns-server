@@ -9,7 +9,9 @@ var config = require('./config.js'),
 
 var address = '', 
   settings = config.getSettings('settings.json');
+
 console.log(settings);
+
 if(settings.address){
   address = settings.address;
 }
@@ -31,5 +33,5 @@ if(address){
   tcpserver.serve(53, address);
   console.log('server running!');
 }else{
-  console.log('address error.');
+  console.log('server address error.');
 }

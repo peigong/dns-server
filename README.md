@@ -61,6 +61,14 @@
 - 输入 `ipconfig /flushdns` 命令清空本机的dns缓存信息
 - 再次输入 `ipconfig /displaydns` 命令查看一下
 
+### 配置本机DNS ###
+
+在CentOS5.4下面直接修改/etc/resolv.conf不行。
+
+必须要在/etc /sysconfig/network-scripts/ifcfg-eth0里面最后加上dns的设置。要不然，重启后，肯定使用eth0设置中没有设 dns的相关信息，使/etc/resolv.conf恢复到原来的状态。
+
+打开/etc/sysconfig/network-scripts/ifcfg-eth0，为了保险起见，可以同样修改eth1的设置
+
 ## 参考文档 ##
 
 - [如何刷新DNS缓存](http://blog.csdn.net/zhongguoren666/article/details/7597675)
