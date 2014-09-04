@@ -18,7 +18,7 @@ domains.map(function(domain){
 });
 
 function sendResponse(response, domain, ips){
-  //console.log(domain, ips);
+  console.log(domain, ips);
   ips.map(function(ip){
     var isIPV6 = false;
     if(ip.indexOf(separator) > -1){
@@ -42,6 +42,7 @@ function sendResponse(response, domain, ips){
 module.exports = {
     onMessage: function (request, response) {
       var domain = request.question[0].name;
+      domain = domain.trim();
       if (dict.hasOwnProperty(domain) && proxy) {
         sendResponse(response, domain, [proxy]);
       }else{
