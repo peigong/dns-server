@@ -42,7 +42,7 @@ function sendResponse(response, domain, ips){
 module.exports = {
     onMessage: function (request, response) {
       var domain = request.question[0].name;
-      domain = domain.trim();
+      domain = domain.replace(/(^s*)|(s*$)/g, '');
       if (dict.hasOwnProperty(domain) && proxy) {
         sendResponse(response, domain, [proxy]);
       }else{
