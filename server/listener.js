@@ -42,20 +42,27 @@ function sendResponse(response, domain, ips){
 module.exports = {
     onMessage: function (request, response) {
       var domain = request.question[0].name;
-      domain = domain.replace(/(^s*)|(s*$)/g, '');
+console.log('step 1');
+      //domain = domain.replace(/(^s*)|(s*$)/g, '');
       if (dict.hasOwnProperty(domain) && proxy) {
+console.log('step 20');
         sendResponse(response, domain, [proxy]);
       }else{
         console.log('domain:', domain, ';');
         console.log('length:', domain.length);
+console.log('step 21');
         cache.resolve(domain, function(err, results){
           if(results && results.length){
+console.log('step 30');
             sendResponse(response, domain, results);
           }else{
+console.log('step 31');
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
+console.log('step 40');
                 console.error(err);
               } else {
+console.log('step 41');
                 address = address || miss_ip;
                 afamily = afamily || 4;
                 address = [address, afamily].join(separator);
