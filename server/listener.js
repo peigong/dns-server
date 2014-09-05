@@ -51,7 +51,6 @@ module.exports = {
             console.error(err);
           }
           if(results && results.length){
-            console.log(results);
             sendResponse(response, domain, results);
           }else{
 //var step1 = (new Date()).getTime();
@@ -62,6 +61,7 @@ module.exports = {
               }
 //var step2 = (new Date()).getTime();
 //console.log(domain, ' step2 ', step2 - step1);
+              console.log(address);
               address = address || miss_ip;
               afamily = afamily || 4;
               address = [address, afamily].join(separator);
@@ -73,19 +73,18 @@ module.exports = {
       }
     },
     onError: function (err, buff, req, res) {
-      var domain = req.question[0].name;
-      console.error(domain, ':', err.stack);
+      console.error(err.stack);
     },
 
     onListening: function () {
-      console.log('server listening on', this.address());
+      console.log('dns server listening');
     },
 
     onSocketError: function (err, socket) {
-      console.error('onSocketError', err);
+      console.error('dns onSocketError', err);
     },
 
     onClose: function () {
-      console.log('server closed', this.address());
+      console.log('dns server closed');
     }
 };
