@@ -61,7 +61,7 @@ module.exports = {
               }
 //var step2 = (new Date()).getTime();
 //console.log(domain, ' step2 ', step2 - step1);
-              console.log(address);
+              //console.log(address);
               address = address || miss_ip;
               afamily = afamily || 4;
               address = [address, afamily].join(separator);
