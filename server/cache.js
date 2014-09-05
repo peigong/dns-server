@@ -24,7 +24,7 @@ function resolve(domain, callback){
     .catch(function(err){
         callback(err);
     })
-    .fin(function(){
+    .finally(function(){
         redis.release(redis_db_name, client);
     });
 }
@@ -46,7 +46,7 @@ function push(domain, ip, callback){
     .catch(function(err){
         callback(err);
     })
-    .fin(function(){
+    .finally(function(){
         redis.release(redis_db_name, client);
     });
 }
