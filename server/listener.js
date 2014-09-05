@@ -42,24 +42,22 @@ function sendResponse(response, domain, ips){
 module.exports = {
     onMessage: function (request, response) {
       var domain = request.question[0].name;
-var start = (new Date()).getTime();
       if (dict.hasOwnProperty(domain) && proxy) {
-console.log(domain, ' step 20:', (new Date()).getTime() - start);
         sendResponse(response, domain, [proxy]);
       }else{
-console.log(domain, ' step 21:', (new Date()).getTime() - start);
+var step0 = (new Date()).getTime();
         cache.resolve(domain, function(err, results){
           if(results && results.length){
-console.log(domain, ' step 30:', (new Date()).getTime() - start);
             sendResponse(response, domain, results);
           }else{
-console.log(domain, ' step 31:', (new Date()).getTime() - start);
+var step1 = (new Date()).getTime();
+console.log(domain, ' step1 ', step1 - step0);
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
-console.log(domain, ' step 40:', (new Date()).getTime() - start);
                 console.error(err);
               } else {
-console.log(domain, ' step 41:', (new Date()).getTime() - start);
+var step2 = (new Date()).getTime();
+console.log(domain, ' step2 ', step2 - step1);
                 address = address || miss_ip;
                 afamily = afamily || 4;
                 address = [address, afamily].join(separator);
