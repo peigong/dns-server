@@ -47,7 +47,11 @@ module.exports = {
       }else{
 //var step0 = (new Date()).getTime();
         cache.resolve(domain, function(err, results){
+          if (err) {
+            console.error(err);
+          }
           if(results && results.length){
+            console.log(results);
             sendResponse(response, domain, results);
           }else{
 //var step1 = (new Date()).getTime();
@@ -55,15 +59,14 @@ module.exports = {
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
                 console.error(err);
-              } else {
+              }
 //var step2 = (new Date()).getTime();
 //console.log(domain, ' step2 ', step2 - step1);
-                address = address || miss_ip;
-                afamily = afamily || 4;
-                address = [address, afamily].join(separator);
-                cache.push(domain, address);
-                sendResponse(response, domain, [address]);
-              }
+              address = address || miss_ip;
+              afamily = afamily || 4;
+              address = [address, afamily].join(separator);
+              cache.push(domain, address);
+              sendResponse(response, domain, [address]);
             });
           }
         });
