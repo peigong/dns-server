@@ -1,8 +1,6 @@
 {
   "name" : "dns-server",
   "script" : "../server/server.js",
-  "max" : "5",
-  "exec_mode" : "cluster_mode",
   "port" : "53",
   "env": {
       "NODE_ENV": "production"
