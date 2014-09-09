@@ -18,7 +18,7 @@ domains.map(function(domain){
 });
 
 function sendResponse(response, domain, ips){
-  //console.log(domain, ips);
+  console.log(domain, ips);
   ips.map(function(ip){
     var isIPV6 = false;
     if(ip.indexOf(separator) > -1){
@@ -45,23 +45,19 @@ module.exports = {
       if (dict.hasOwnProperty(domain) && proxy) {
         sendResponse(response, domain, [proxy]);
       }else{
-//var step0 = (new Date()).getTime();
         cache.resolve(domain, function(err, results){
           if (err) {
+            console.error('listener cache.resolve');
             console.error(err);
           }
           if(results && results.length){
             sendResponse(response, domain, results);
           }else{
-//var step1 = (new Date()).getTime();
-//console.log(domain, ' step1 ', step1 - step0);
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
+                console.error('listener dns.lookup');
                 console.error(err);
               }
-//var step2 = (new Date()).getTime();
-//console.log(domain, ' step2 ', step2 - step1);
-              //console.log(address);
               address = address || miss_ip;
               afamily = afamily || 4;
               address = [address, afamily].join(separator);
@@ -73,6 +69,7 @@ module.exports = {
       }
     },
     onError: function (err, buff, req, res) {
+      console.error('listener onError');
       console.error(err.stack);
     },
 
@@ -81,6 +78,7 @@ module.exports = {
     },
 
     onSocketError: function (err, socket) {
+      console.error('listener onSocketError');
       console.error('dns onSocketError', err);
     },
 

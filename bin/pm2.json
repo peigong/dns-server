@@ -1,10 +1,11 @@
 {
-  "name" : "dns-server",
-  "script" : "../server/server.js",
-  "port" : "53",
-  "max": 1,
-  "instances": 1,
-  "env": {
-      "NODE_ENV": "production"
-  }
+    "name" : "dns-server",
+    "script" : "../server/server.js",
+    "port" : "53",
+    "max": 1,
+    "instances": 1,
+    "log_date_format": "YYYY-MM-DD HH:mm Z",
+    "env": {
+        "NODE_ENV": "production"
+    }
 }
