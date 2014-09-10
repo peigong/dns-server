@@ -18,7 +18,7 @@ domains.map(function(domain){
 });
 
 function sendResponse(response, domain, ips){
-  console.log(domain, ips);
+  //console.log(domain, ips);
   ips.map(function(ip){
     var isIPV6 = false;
     if(ip.indexOf(separator) > -1){
