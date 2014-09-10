@@ -47,29 +47,32 @@ module.exports = {
       }else{
         cache.resolve(domain, function(err, results){
           if (err) {
-            console.error('listener cache.resolve');
-  console.log(domain);
-            console.error(err);
+console.log('listener cache.resolve');
+console.log(domain);
+            console.log(err);
           }
           if(results && results.length){
-            console.log('results && results.length');
-  console.log(domain);
-            console.log(results);
+console.log('results && results.length');
+console.log(domain);
+console.log(results);
             sendResponse(response, domain, results);
           }else{
-            console.log('else');
-  console.log(domain);
-            console.log(results);
+console.log('else');
+console.log(domain);
+console.log(results);
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
-                console.error('listener dns.lookup');
-  console.log(domain);
-                console.error(err);
+console.log('listener dns.lookup');
+console.log(domain);
+                console.log(err);
               }
-              address = address || miss_ip;
               afamily = afamily || 4;
-              address = [address, afamily].join(separator);
-              cache.push(domain, address);
+              if(address){
+                address = [address, afamily].join(separator);
+                cache.push(domain, address);
+              }else{
+                address = [miss_ip, afamily].join(separator);
+              }
 if(err){
   console.log('listener dns.lookup');
   console.log(domain);
@@ -82,8 +85,8 @@ if(err){
       }
     },
     onError: function (err, buff, req, res) {
-      console.error('listener onError');
-      console.error(err.stack);
+console.log('listener onError');
+      console.log(err.stack);
     },
 
     onListening: function () {
@@ -91,8 +94,8 @@ if(err){
     },
 
     onSocketError: function (err, socket) {
-      console.error('listener onSocketError');
-      console.error('dns onSocketError', err);
+console.log('listener onSocketError');
+      console.log(err);
     },
 
     onClose: function () {
