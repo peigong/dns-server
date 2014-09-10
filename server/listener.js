@@ -51,8 +51,12 @@ module.exports = {
             console.error(err);
           }
           if(results && results.length){
+            console.log('results && results.length');
+            console.log(results);
             sendResponse(response, domain, results);
           }else{
+            console.log('else');
+            console.log(results);
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
                 console.error('listener dns.lookup');
@@ -62,6 +66,11 @@ module.exports = {
               afamily = afamily || 4;
               address = [address, afamily].join(separator);
               cache.push(domain, address);
+if(err){
+  console.error('listener dns.lookup');
+  console.error(domain);
+  console.error(address);
+}
               sendResponse(response, domain, [address]);
             });
           }
