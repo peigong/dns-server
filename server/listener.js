@@ -47,23 +47,13 @@ module.exports = {
       }else{
         cache.resolve(domain, function(err, results){
           if (err) {
-console.log('listener cache.resolve');
-console.log(domain);
             console.log(err);
           }
           if(results && results.length){
-console.log('results && results.length');
-console.log(domain);
-console.log(results);
             sendResponse(response, domain, results);
           }else{
-console.log('else');
-console.log(domain);
-console.log(results);
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
-console.log('listener dns.lookup');
-console.log(domain);
                 console.log(err);
               }
               afamily = afamily || 4;
@@ -73,11 +63,6 @@ console.log(domain);
               }else{
                 address = [miss_ip, afamily].join(separator);
               }
-if(err){
-  console.log('listener dns.lookup');
-  console.log(domain);
-  console.log(address);
-}
               sendResponse(response, domain, [address]);
             });
           }
@@ -85,7 +70,6 @@ if(err){
       }
     },
     onError: function (err, buff, req, res) {
-console.log('listener onError');
       console.log(err.stack);
     },
 
@@ -94,7 +78,6 @@ console.log('listener onError');
     },
 
     onSocketError: function (err, socket) {
-console.log('listener onSocketError');
       console.log(err);
     },
 
