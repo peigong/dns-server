@@ -48,18 +48,22 @@ module.exports = {
         cache.resolve(domain, function(err, results){
           if (err) {
             console.error('listener cache.resolve');
+  console.log(domain);
             console.error(err);
           }
           if(results && results.length){
             console.log('results && results.length');
+  console.log(domain);
             console.log(results);
             sendResponse(response, domain, results);
           }else{
             console.log('else');
+  console.log(domain);
             console.log(results);
             dns.lookup(domain, function (err, address, afamily) {
               if (err) {
                 console.error('listener dns.lookup');
+  console.log(domain);
                 console.error(err);
               }
               address = address || miss_ip;
@@ -67,9 +71,9 @@ module.exports = {
               address = [address, afamily].join(separator);
               cache.push(domain, address);
 if(err){
-  console.error('listener dns.lookup');
-  console.error(domain);
-  console.error(address);
+  console.log('listener dns.lookup');
+  console.log(domain);
+  console.log(address);
 }
               sendResponse(response, domain, [address]);
             });
