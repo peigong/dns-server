@@ -10,16 +10,16 @@ usage(){
 
 #start server
 start(){
-    pm2 start pm2.json
+    forever start ../server/server.js
 }
 
 #stop server
 stop(){
-    pm2 stop pm2.json
+    forever stop ../server/server.js
 }
 
 restart(){
-    pm2 restart pm2.json
+    forever restart ../server/server.js
 }
 
 case "$ACTION" in
