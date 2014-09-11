@@ -35,7 +35,8 @@
 <a name="%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96" class="anchor" href="#%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96"><span class="octicon octicon-link"></span></a>环境依赖</h2>
 
 <ul>
-<li>Redis服务需要开启（或开机启动）</li>
+<li>Redis服务需要开启，最好设置为开机启动。</li>
+<li>linux系统需要在防火墙规则中内加入UDP和TCP端口53的外网访问，windows系统需要在防火墙里添加端口，选择UDP，输入端口号53，如果使用服务器安全狗等防火墙，请添加53端口在UDP的完全访问，例外中去掉127.0.0.1即可。参考：《<a href="http://baike.baidu.com/view/3385138.htm?fr=aladdin">DNS端口号</a>》</li>
 </ul><h2>
 <a name="%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84" class="anchor" href="#%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="octicon octicon-link"></span></a>部署服务的目录结构</h2>
 
