@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Dns-server by localad</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Dns-server</h1>
+        <p>DNS服务器</p>
+
+        <p class="view"><a href="https://github.com/localad/dns-server">View the Project on GitHub <small>localad/dns-server</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/localad/dns-server/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/localad/dns-server/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/localad/dns-server">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="dns%E6%9C%8D%E5%8A%A1%E5%99%A8" class="anchor" href="#dns%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="octicon octicon-link"></span></a>DNS服务器</h1>
+
+<h2>
+<a name="%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96" class="anchor" href="#%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96"><span class="octicon octicon-link"></span></a>环境依赖</h2>
+
+<ul>
+<li>Redis服务需要开启（或开机启动）</li>
+</ul><h2>
+<a name="%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84" class="anchor" href="#%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="octicon octicon-link"></span></a>部署服务的目录结构</h2>
+
+<p>部署服务需要的目录结构如下：</p>
+
+<ul>
+<li>
+<strong>config：</strong>服务的配置目录。</li>
+<li>
+<strong>dns：</strong>服务的软链接目录。</li>
+<li>
+<strong>release：</strong>版本发布目录。</li>
+</ul><p><strong>建议：</strong>可以部署在目标服务器的<code>/home/localad/dns-server</code>目录下。</p>
+
+<h2>
+<a name="%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E7%9A%84%E6%96%B9%E6%B3%95" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E7%9A%84%E6%96%B9%E6%B3%95"><span class="octicon octicon-link"></span></a>服务部署的方法</h2>
+
+<h3>
+<a name="%E5%85%8B%E9%9A%86%E5%92%8C%E9%83%A8%E7%BD%B2" class="anchor" href="#%E5%85%8B%E9%9A%86%E5%92%8C%E9%83%A8%E7%BD%B2"><span class="octicon octicon-link"></span></a>克隆和部署</h3>
+
+<p>使用GIT克隆项目代码：</p>
+
+<pre><code>cd /home/localad/dns-server/release
+git clone https://github.com/localad/dns-server.git dns-server-{版本号} -b {版本号}
+</code></pre>
+
+<h3>
+<a name="%E5%BB%BA%E7%AB%8B%E8%BD%AF%E8%BF%9E%E6%8E%A5" class="anchor" href="#%E5%BB%BA%E7%AB%8B%E8%BD%AF%E8%BF%9E%E6%8E%A5"><span class="octicon octicon-link"></span></a>建立软连接</h3>
+
+<pre><code>rm -rf /home/localad/dns-server/dns
+ln -s /home/localad/dns-server/release/dns-server-{版本号} /home/localad/dns-server/dns
+</code></pre>
+
+<p>第一次部署时，需要复制系统配置文件，并设置：</p>
+
+<pre><code>cp -r /home/localad/dns-server/release/dns-server-{版本号}/config /home/localad/dns-server
+</code></pre>
+
+<h3>
+<a name="%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1" class="anchor" href="#%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1"><span class="octicon octicon-link"></span></a>启动和停止服务</h3>
+
+<p>进入<code>dns/bin</code>目录，可以使用以下命令：</p>
+
+<ul>
+<li>
+<code>sh ./server-install.sh</code>：安装NPM依赖</li>
+<li>
+<code>sh ./dns-server.sh start</code>：启动</li>
+<li>
+<code>sh ./dns-server.sh stop</code>：停止</li>
+<li>
+<code>sh ./dns-server.sh restart</code>：重启</li>
+</ul><h2>
+<a name="%E5%85%B3%E4%BA%8Edns" class="anchor" href="#%E5%85%B3%E4%BA%8Edns"><span class="octicon octicon-link"></span></a>关于DNS</h2>
+
+<h3>
+<a name="%E5%85%AC%E5%85%B1dns" class="anchor" href="#%E5%85%AC%E5%85%B1dns"><span class="octicon octicon-link"></span></a>公共DNS</h3>
+
+<ul>
+<li>CNNIC SDNS：<code>1.2.4.8</code> <code>210.2.4.8</code>
+</li>
+<li>
+<a href="http://www.alidns.com/">阿里公共DNS</a>：<code>223.5.5.5</code> <code>223.6.6.6</code>
+</li>
+<li>114 DNS：<code>114.114.114.114</code> <code>114.114.115.115</code>
+</li>
+<li>Google DNS：<code>8.8.8.8</code> <code>8.8.4.4</code>
+</li>
+</ul><h3>
+<a name="%E6%9C%8D%E5%8A%A1%E5%99%A8dns%E7%9A%84%E9%85%8D%E7%BD%AE" class="anchor" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8dns%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="octicon octicon-link"></span></a>服务器DNS的配置</h3>
+
+<p>本机的DNS配置信息是在：<code>/etc/resolv.conf</code></p>
+
+<h3>
+<a name="%E5%88%B7%E6%96%B0dns%E7%BC%93%E5%AD%98" class="anchor" href="#%E5%88%B7%E6%96%B0dns%E7%BC%93%E5%AD%98"><span class="octicon octicon-link"></span></a>刷新DNS缓存</h3>
+
+<ul>
+<li>进入命令提示符下（开始——运行——cmd）</li>
+<li>运行：<code>ipconfig /displaydns</code>命令，查看本机已经缓存了哪些dns信息</li>
+<li>输入 <code>ipconfig /flushdns</code> 命令清空本机的dns缓存信息</li>
+<li>再次输入 <code>ipconfig /displaydns</code> 命令查看一下</li>
+</ul><h3>
+<a name="%E9%85%8D%E7%BD%AE%E6%9C%AC%E6%9C%BAdns" class="anchor" href="#%E9%85%8D%E7%BD%AE%E6%9C%AC%E6%9C%BAdns"><span class="octicon octicon-link"></span></a>配置本机DNS</h3>
+
+<p>在CentOS5.4下面直接修改/etc/resolv.conf不行。</p>
+
+<p>必须要在/etc /sysconfig/network-scripts/ifcfg-eth0里面最后加上dns的设置。要不然，重启后，肯定使用eth0设置中没有设 dns的相关信息，使/etc/resolv.conf恢复到原来的状态。</p>
+
+<p>打开/etc/sysconfig/network-scripts/ifcfg-eth0，为了保险起见，可以同样修改eth1的设置</p>
+
+<h2>
+<a name="%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3" class="anchor" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="octicon octicon-link"></span></a>参考文档</h2>
+
+<ul>
+<li><a href="http://blog.csdn.net/zhongguoren666/article/details/7597675">如何刷新DNS缓存</a></li>
+<li><a href="http://www.ip.cn/dns.html">全国 DNS 服务器</a></li>
+<li><a href="http://www.orsoon.com/news/pcnews/15733.html">全国内外公共DNS服务器地址分享</a></li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/localad">localad</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
