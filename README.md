@@ -39,8 +39,8 @@
 
 - `sh ./server-install.sh`：安装NPM依赖
 - `sh ./dns-server.sh start`：启动
-- `sh ./dns-server.sh stop`：停止
-- `sh ./dns-server.sh restart`：重启
+- `sh ./dns-server.sh stop`：停止【暂时不能使用】
+- `sh ./dns-server.sh restart`：重启【暂时不能使用】
 
 ## 关于DNS ##
 
