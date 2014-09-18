@@ -70,6 +70,12 @@
 
 打开/etc/sysconfig/network-scripts/ifcfg-eth0，为了保险起见，可以同样修改eth1的设置
 
+### 域控和DNS ###
+
+- [动态DNS](http://baike.baidu.com/view/1296340.htm?fr=aladdin)
+- [辅助域控及dns设置](http://wenku.baidu.com/link?url=0VPHYKjbsHAl3GNRYV1kbaPNXz3xANnImMZkOl9ZfpD_SFmoMt-_wxUmslc0beJp2T3i_-x3OhJXjU1SBOtLfSDSu85rqmKSY9ch3umAixK)
+- [DC和DNS分离安装](http://windows56.blog.163.com/blog/static/181807598201182893739911/)
+
 ## 参考文档 ##
 
 - [如何刷新DNS缓存](http://blog.csdn.net/zhongguoren666/article/details/7597675)
