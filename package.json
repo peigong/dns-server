@@ -13,6 +13,7 @@
   "dependencies": {
     "q": "~2.0.0",
     "native-dns": "~0.6.1",
+    "server-helpers": "https://github.com/toolkit-rack/server-helpers.git#master",
     "redis": "~0.10.3",
     "generic-pool": "~2.1.1"
   }
