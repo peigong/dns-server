@@ -1,4 +1,6 @@
-var redis = require('./redis.js');
+var redis = require('server-helpers').redis;
+
+redis.config.setConfigDir(path.resolve(__dirname, '..', '..', '..', 'config'));
 
 var redis_db_name = 'basic',
     separator = '_',
