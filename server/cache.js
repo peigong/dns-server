@@ -1,11 +1,8 @@
-var redis = require('server-helpers').redis;
+var createRedis = require('server-helpers').redis;
 
-var configDir = path.resolve(__dirname, '..', '..', 'config');
-console.log(configDir);
-redis.config.setConfigDir(configDir);
-
-var redis_db_name = 'basic',
+var redis = null, 
     separator = '_',
+    redis_db_name = 'basic',
     prefix = 'dns_domain_ip4';
 
 function getCacheKey(domain){
@@ -45,7 +42,12 @@ function push(domain, ip, callback){
     });
 }
 
-module.exports = {
-    resolve: resolve,
-    push: push
+module.exports = function(config){
+    var settings = config.getSettings('redis');
+    console.log(settings);
+    redis = createRedis(settings);
+    return {
+        resolve: resolve,
+        push: push
+    };
 };

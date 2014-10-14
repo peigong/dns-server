@@ -1,21 +1,10 @@
 var dns = require('native-dns');
-var config = require('./config.js'),
-  cache = require('./cache.js');
+var createCache = require('./cache.js');
 
 var separator = '@',
   miss_ip = '0.0.0.0';
 
-var dict = {}, proxy = '', domains = [], 
-  settings = config.getSettings('settings.json');
-if(settings.proxy){
-  proxy = settings.proxy;
-}
-if(settings.domains){
-  domains = config.getSettings(settings.domains);
-}
-domains.map(function(domain){
-  dict[domain] = 1;
-});
+var cache = null, dict = {}, proxy = '', domains = [];
 
 function sendResponse(response, domain, ips){
   //console.log(domain, ips);
@@ -39,7 +28,19 @@ function sendResponse(response, domain, ips){
   response.send();
 }
 
-module.exports = {
+module.exports = function(config){
+  settings = config.getSettings('settings.json');
+  if(settings.proxy){
+    proxy = settings.proxy;
+  }
+  if(settings.domains){
+    domains = config.getSettings(settings.domains);
+  }
+  domains.map(function(domain){
+    dict[domain] = 1;
+  });
+  cache = createCache(config);
+  return {
     onMessage: function (request, response) {
       var domain = request.question[0].name;
       if (dict.hasOwnProperty(domain) && proxy) {
@@ -84,4 +85,5 @@ module.exports = {
     onClose: function () {
       console.log('dns server closed');
     }
+  };
 };

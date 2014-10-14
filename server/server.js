@@ -1,19 +1,21 @@
 "use strict";
 
+var path = require('path');
 var dns = require('native-dns'),
   tcpserver = dns.createTCPServer(),
   server = dns.createServer();
 
-var config = require('./config.js'),
+var configDir = path.resolve(__dirname, '..', '..', '..', 'config');
+
+var config = require('./config.js')(configDir),
   listener = require('./listener.js');
 
-var address = '', 
-  settings = config.getSettings('settings.json');
+var address = '';
 
-console.log(settings);
+console.log(config.settings);
 
-if(settings.address){
-  address = settings.address;
+if(config.settings.address){
+  address = config.settings.address;
 }
 
 server.on('request', listener.onMessage);
