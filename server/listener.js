@@ -29,11 +29,10 @@ function sendResponse(response, domain, ips){
 }
 
 module.exports = function(config){
-  settings = config.getSettings('settings.json');
-  if(settings.proxy){
-    proxy = settings.proxy;
+  if(config.settings.proxy){
+    proxy = config.settings.proxy;
   }
-  if(settings.domains){
+  if(config.settings.domains){
     domains = config.getSettings(settings.domains);
   }
   domains.map(function(domain){

@@ -11,9 +11,19 @@ function Config(dir){
 }
 Config.prototype.getSettings = function(key){
     var settings = null;
-    if(!!this.dir && this.dict.hasOwnProperty(key)){
+    if(!!this.dir){
+        if(!this.dict.hasOwnProperty(key)){
+            this.dict[key] = {};
+        }
         if(!this.dict[key].hasOwnProperty('settings')){
-            this.dict[key].handler = createConfig(this.dict[key].file);
+            var filename = '';
+            if(this.dict[key].hasOwnProperty('file')){
+                filename = this.dict[key].file;
+            }else if(this.settings.hasOwnProperty(key)){
+                filename = this.settings[key];
+                this.dict[key].file = filename;
+            }
+            this.dict[key].handler = createConfig(filename);
             this.dict[key].handler.setConfigDir(this.dir);
             this.dict[key].settings = this.dict[key].handler.getConfig();
         }

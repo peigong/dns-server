@@ -8,7 +8,7 @@ var dns = require('native-dns'),
 var configDir = path.resolve(__dirname, '..', '..', '..', 'config');
 
 var config = require('./config.js')(configDir),
-  listener = require('./listener.js');
+  listener = require('./listener.js')(config);
 
 var address = '';
 
