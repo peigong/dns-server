@@ -34,7 +34,7 @@ module.exports = function(config){
     proxy = settings.proxy;
   }
   if(settings.domains){
-    domains = config.getSettings(settings.domains);
+    domains = config.getSettings('domains');
   }
   domains.map(function(domain){
     dict[domain] = 1;
