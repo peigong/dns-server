@@ -13,8 +13,6 @@
   "dependencies": {
     "q": "~2.0.0",
     "native-dns": "~0.6.1",
-    "redis": "~0.10.3",
-    "generic-pool": "~2.1.1",
     "server-helpers": "~0.1.1"
   }
 }

@@ -9,7 +9,7 @@ function Config(dir){
     };
     this.settings = this.getSettings('app');
 }
-Config.prototype.getSettings(key){
+Config.prototype.getSettings = function(key){
     var settings = null;
     if(!!this.dir && this.dict.hasOwnProperty(key)){
         if(!this.dict[key].hasOwnProperty('settings')){
