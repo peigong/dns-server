@@ -1,13 +1,15 @@
 "use strict";
 
 var path = require('path');
+
 var dns = require('native-dns'),
   tcpserver = dns.createTCPServer(),
   server = dns.createServer();
 
 var configDir = path.resolve(__dirname, '..', '..', '..', 'config');
+var createConfigHandler = require('server-helpers').createConfigHandler;
 
-var config = require('./config.js')(configDir),
+var config = createConfigHandler(configDir),
   listener = require('./listener.js')(config);
 
 var address = '';
